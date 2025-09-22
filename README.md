@@ -1,6 +1,10 @@
-# Análise Estatística do Questionário 1 sobre CEUAs
+# Statistical Analysis of CEUA Survey
 
-## Instalação de bibliotecas necessárias
+
+
+
+
+## 1. Installing external libraries needed
 
 
 ```python
@@ -11,7 +15,33 @@
 #!pip install geopandas
 ```
 
-## Importação das bibliotecas usadas na análise
+## 1.1 Importing common libraries for analysis
+
+
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import statsmodels.api as sm
+import gspread
+import nltk
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.sparse import triu
+import sqlite3
+import re
+
+#import os
+#import io
+#from google.oauth2 import service_account
+#from googleapiclient.discovery import build
+#from googleapiclient.http import MediaIoBaseDownload
+from oauth2client.service_account import ServiceAccountCredentials
+import gspread
+```
 
 
 ```python
@@ -74,333 +104,7 @@
 
 ```
 
-
-```python
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
-import statsmodels.api as sm
-import gspread
-import nltk
-from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from scipy.sparse import triu
-import sqlite3
-import re
-
-#import os
-#import io
-#from google.oauth2 import service_account
-#from googleapiclient.discovery import build
-#from googleapiclient.http import MediaIoBaseDownload
-from oauth2client.service_account import ServiceAccountCredentials
-import gspread
-```
-
-## Importando dados atualizados a partir do Google Drive
-
-Usando a base de dados original, obtida do Google Forms, vamos analizar as semelhanças entre as respostas para rejeitar respostas que formam vetores 85% ou mais similares, usando a regra do cotovelo. 
-
-
-```python
-# # --- NLTK Stopwords Setup ---
-# # Download stopwords list if not already present
-# try:
-#     stopwords.words('portuguese')
-# except LookupError:
-#     print("Downloading nltk stopwords for Portuguese...")
-#     nltk.download('stopwords')
-
-# # --- Configuration ---
-# SPREADSHEET_NAME = 'Principal'
-# KEY_FILE_PATH = 'data-analysis-ceuas-887bb6706d4f.json'
-
-# def load_data(sheet_name, key_path):
-#     """Connects to Google Sheets and loads the specified sheet into a DataFrame."""
-#     try:
-#         gc = gspread.service_account(filename=key_path)
-#         spreadsheet = gc.open(sheet_name)
-#         worksheet = spreadsheet.get_worksheet(0)
-#         data = worksheet.get_all_values()
-#         headers = data.pop(0)
-#         df = pd.DataFrame(data, columns=headers)
-#         print(f"Success! Spreadsheet '{sheet_name}' loaded into a DataFrame.")
-#         return df
-#     except FileNotFoundError:
-#         print(f"ERROR: The key file was not found at '{key_path}'.")
-#     except gspread.exceptions.SpreadsheetNotFound:
-#         print(f"ERROR: Spreadsheet '{sheet_name}' not found.")
-#     except Exception as e:
-#         print(f"An unexpected error occurred during data loading: {e}")
-#     return None
-
-# def preprocess_data(df):
-#     """Prepares the DataFrame for analysis by handling IDs and combining text."""
-#     if 'Cód.' in df.columns:
-#         df['Original_ID'] = df['Cód.'].copy()
-#         df = df.drop(columns=['Cód.'])
-#         print("Preserved 'Cód.' column as Original_ID and dropped the original.")
-#     else:
-#         print("'Cód.' column not found - using 1-based row numbers as Original_ID.")
-#         df['Original_ID'] = np.arange(len(df)) + 1
-    
-#     columns_to_compare = [col for col in df.columns if col != 'Original_ID']
-#     df['Combined'] = df[columns_to_compare].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
-#     df_filtered = df[df['Combined'].str.len() > 10].reset_index(drop=True)
-    
-#     return df_filtered, columns_to_compare
-
-# def plot_threshold_analysis(df, text_column, stop_words_list):
-#     """Calculates similarity and plots the number of similar pairs vs. threshold."""
-#     print("\n--- Analyzing Similarity Thresholds ---")
-#     vectorizer = CountVectorizer(
-#         lowercase=True,
-#         stop_words=stop_words_list,
-#         ngram_range=(1, 2),
-#         min_df=2
-#     )
-#     text_matrix = vectorizer.fit_transform(df[text_column])
-#     cosine_similarities = cosine_similarity(text_matrix)
-    
-#     threshold_values = np.arange(0.75, 1.0, 0.02)
-#     similar_rows_counts = []
-    
-#     upper_triangle = triu(cosine_similarities, k=1)
-
-#     for threshold in threshold_values:
-#         similar_indices = np.argwhere(upper_triangle >= threshold)
-#         similar_rows_counts.append(len(similar_indices))
-        
-#     plt.figure(figsize=(10, 6))
-#     plt.plot(threshold_values, similar_rows_counts, marker='o', linestyle='-')
-#     plt.xlabel('Similarity Threshold')
-#     plt.ylabel('Number of Similar Pairs Found')
-#     plt.title('Effect of Similarity Threshold on Number of Duplicates Found')
-#     plt.grid(True)
-#     plt.xticks(np.arange(0.75, 1.0, 0.05))
-#     plt.show()
-#     print("Plot generated to help choose a similarity cutoff.")
-
-
-# def find_similar_rows(df, text_column, stop_words_list, threshold=0.85):
-#     """Vectorizes text and finds pairs of rows with cosine similarity above a threshold."""
-#     vectorizer = CountVectorizer(
-#         lowercase=True,
-#         stop_words=stop_words_list, # Use the provided list
-#         ngram_range=(1, 2),
-#         min_df=2
-#     )
-#     text_matrix = vectorizer.fit_transform(df[text_column])
-#     cosine_similarities = cosine_similarity(text_matrix)
-    
-#     upper_triangle = triu(cosine_similarities, k=1)
-#     similar_indices = np.argwhere(upper_triangle >= threshold)
-    
-#     return [(i, j, cosine_similarities[i, j]) for i, j in similar_indices]
-
-# def highlight_differences(text1, text2):
-#     """Highlights differences between two texts using HTML formatting."""
-#     # Simple word-by-word comparison
-#     words1 = text1.split()
-#     words2 = text2.split()
-    
-#     highlighted1 = []
-#     highlighted2 = []
-    
-#     # Compare words and highlight differences
-#     for i in range(max(len(words1), len(words2))):
-#         if i >= len(words1):
-#             highlighted2.append(f'<span style="background-color: #ffcccc">{words2[i]}</span>')
-#         elif i >= len(words2):
-#             highlighted1.append(f'<span style="background-color: #ffcccc">{words1[i]}</span>')
-#         elif words1[i] != words2[i]:
-#             highlighted1.append(f'<span style="background-color: #ffcccc">{words1[i]}</span>')
-#             highlighted2.append(f'<span style="background-color: #ffcccc">{words2[i]}</span>')
-#         else:
-#             highlighted1.append(words1[i])
-#             highlighted2.append(words2[i])
-    
-#     return ' '.join(highlighted1), ' '.join(highlighted2)
-
-# def generate_report(df, similar_pairs, columns_to_compare):
-#     """Generates a DataFrame report of the similar pairs found with detailed differences."""
-#     report_data = []
-    
-#     for i, j, similarity in similar_pairs:
-#         id1 = df.loc[i, 'Original_ID']
-#         id2 = df.loc[j, 'Original_ID']
-        
-#         row1_data = df.loc[i, columns_to_compare]
-#         row2_data = df.loc[j, columns_to_compare]
-        
-#         # Find differing columns
-#         diff_mask = row1_data != row2_data
-#         differing_columns = diff_mask.index[diff_mask].tolist()
-        
-#         # Create detailed difference report for each column
-#         column_differences = []
-#         for col in columns_to_compare:
-#             val1 = str(row1_data[col])
-#             val2 = str(row2_data[col])
-            
-#             if val1 != val2:
-#                 # Highlight the actual differences in the text
-#                 highlighted1, highlighted2 = highlight_differences(val1, val2)
-#                 column_differences.append({
-#                     'column': col,
-#                     'value_A': val1,
-#                     'value_B': val2,
-#                     'highlighted_A': highlighted1,
-#                     'highlighted_B': highlighted2
-#                 })
-        
-#         # Prepare content previews
-#         content_a = df.loc[i, 'Combined']
-#         content_b = df.loc[j, 'Combined']
-        
-#         # Highlight differences in the combined content
-#         highlighted_a, highlighted_b = highlight_differences(content_a, content_b)
-        
-#         report_data.append({
-#             'ID_A': id1,
-#             'ID_B': id2,
-#             'Similarity': round(similarity, 4),
-#             'Differing_Columns': ', '.join(differing_columns) if differing_columns else 'None',
-#             'Column_Differences': column_differences,
-#             'Content_A': content_a[:200] + '...' if len(content_a) > 200 else content_a,
-#             'Content_B': content_b[:200] + '...' if len(content_b) > 200 else content_b,
-#             'Highlighted_A': highlighted_a,
-#             'Highlighted_B': highlighted_b
-#         })
-    
-#     return pd.DataFrame(report_data)
-
-# def save_detailed_report(report_df, filename='detailed_similarity_report.html'):
-#     """Saves a detailed HTML report with highlighted differences."""
-#     # CSS style with escaped curly braces
-#     css_style = """
-#     <style>
-#         body {{ font-family: Arial, sans-serif; margin: 20px; }}
-#         .pair {{ border: 1px solid #ccc; margin-bottom: 20px; padding: 15px; border-radius: 5px; }}
-#         .header {{ background-color: #f0f0f0; padding: 10px; border-radius: 3px; }}
-#         .differences {{ margin-top: 10px; }}
-#         .column-diff {{ margin-bottom: 15px; }}
-#         .column-name {{ font-weight: bold; color: #333; }}
-#         .content {{ background-color: #f9f9f9; padding: 10px; border-radius: 3px; margin-top: 5px; }}
-#         .highlight {{ background-color: #ffcccc; }}
-#     </style>
-#     """
-    
-#     html_content = f"""
-#     <html>
-#     <head>
-#         <title>Detailed Similarity Report</title>
-#         {css_style}
-#     </head>
-#     <body>
-#         <h1>Detailed Similarity Report</h1>
-#         <p>Found {len(report_df)} similar pairs with similarity threshold ≥ 0.85</p>
-#     """
-    
-#     for idx, row in report_df.iterrows():
-#         html_content += f"""
-#         <div class="pair">
-#             <div class="header">
-#                 <h2>Pair {idx+1}: ID {row['ID_A']} vs ID {row['ID_B']} (Similarity: {row['Similarity']})</h2>
-#                 <p>Differing columns: {row['Differing_Columns']}</p>
-#             </div>
-#         """
-        
-#         # Add column differences
-#         if row['Column_Differences']:
-#             html_content += '<div class="differences"><h3>Column Differences:</h3>'
-#             for diff in row['Column_Differences']:
-#                 html_content += f"""
-#                 <div class="column-diff">
-#                     <p class="column-name">Column: {diff['column']}</p>
-#                     <div class="content">
-#                         <p><strong>Row A:</strong> {diff['highlighted_A']}</p>
-#                         <p><strong>Row B:</strong> {diff['highlighted_B']}</p>
-#                     </div>
-#                 </div>
-#                 """
-#             html_content += '</div>'
-        
-#         # Add combined content comparison
-#         html_content += f"""
-#         <div class="content-comparison">
-#             <h3>Combined Content Comparison:</h3>
-#             <div class="content">
-#                 <p><strong>Row A (ID: {row['ID_A']}):</strong><br>{row['Highlighted_A']}</p>
-#                 <p><strong>Row B (ID: {row['ID_B']}):</strong><br>{row['Highlighted_B']}</p>
-#             </div>
-#         </div>
-#         """
-        
-#         html_content += "</div>"
-    
-#     html_content += """
-#     </body>
-#     </html>
-#     """
-    
-#     with open(filename, 'w', encoding='utf-8') as f:
-#         f.write(html_content)
-    
-#     print(f"Detailed HTML report saved to '{filename}'")
-
-# def main():
-#     """Main function to run the similarity analysis workflow."""
-#     df_raw = load_data(SPREADSHEET_NAME, KEY_FILE_PATH)
-    
-#     if df_raw is not None:
-#         df_processed, columns_to_compare = preprocess_data(df_raw.copy())
-        
-#         # Get the Portuguese stop words list
-#         portuguese_stopwords = stopwords.words('portuguese')
-        
-#         # --- Generate and show the plot first ---
-#         plot_threshold_analysis(df_processed, 'Combined', portuguese_stopwords)
-        
-#         # --- Then, proceed with the chosen threshold ---
-#         print(f"\n--- Finding pairs with similarity >= 0.85 ---")
-#         similar_pairs = find_similar_rows(df_processed, 'Combined', portuguese_stopwords, threshold=0.85)
-        
-#         if similar_pairs:
-#             report_df = generate_report(df_processed, similar_pairs, columns_to_compare)
-            
-#             duplicate_ids_to_remove = sorted(list(set(report_df['ID_B'])))
-#             print(f"\nFound {len(report_df)} similar pairs.")
-#             print(f"Suggested rows to remove (duplicates): {', '.join(map(str, duplicate_ids_to_remove))}")
-            
-#             # Save CSV report
-#             csv_report = report_df.drop(columns=['Column_Differences', 'Highlighted_A', 'Highlighted_B'])
-#             csv_report.to_csv('similar_rows_report.csv', index=False)
-#             print("\nBasic report saved to 'similar_rows_report.csv'")
-            
-#             # Save detailed HTML report
-#             save_detailed_report(report_df)
-            
-#             # Print a few examples to console
-#             print("\n--- Example Differences Found ---")
-#             for idx, row in report_df.head(2).iterrows():
-#                 print(f"\nPair {idx+1}: ID {row['ID_A']} vs ID {row['ID_B']} (Similarity: {row['Similarity']})")
-#                 print(f"Differing columns: {row['Differing_Columns']}")
-                
-#                 if row['Column_Differences']:
-#                     for diff in row['Column_Differences'][:2]:  # Show first 2 column differences
-#                         print(f"  Column '{diff['column']}':")
-#                         print(f"    Row A: {diff['value_A'][:100]}{'...' if len(diff['value_A']) > 100 else ''}")
-#                         print(f"    Row B: {diff['value_B'][:100]}{'...' if len(diff['value_B']) > 100 else ''}")
-#         else:
-#             print("\nNo similar rows found above the threshold.")
-
-# if __name__ == '__main__':
-#     main()
-```
+## 2. Loading data from GDrive
 
 
 ```python
@@ -440,7 +144,7 @@ def preprocess_data(df):
     if 'Cód.' in df.columns:
         df['Original_ID'] = df['Cód.'].copy()
         df = df.drop(columns=['Cód.'])
-        print("Preserved 'Cód.' column as Original_ID and dropped the original.")
+        # print("Preserved 'Cód.' column as Original_ID and dropped the original.")
     else:
         print("'Cód.' column not found - using 1-based row numbers as Original_ID.")
         df['Original_ID'] = np.arange(len(df)) + 1
@@ -549,12 +253,53 @@ def main():
             print("\nFull report saved to 'similar_rows_report.csv'")
         else:
             print("\nNo similar rows found above the threshold.")
+print("""
+    --- Methodological Summary & Plot Explanation ---
+    To identify similar rows, this script employs a standard NLP vector space model.
+    First, each row's text is converted into a numerical vector using a Bag-of-Ngrams approach
+    (counting both single words and two-word phrases).
+
+    The similarity between these vectors is then calculated using Cosine Similarity.
+    This metric evaluates the cosine of the angle between two vectors, effectively measuring
+    how similar their content is, irrespective of the total length of the text. A score
+    of 1.0 means the content is proportionally identical.
+
+    The plot shows the number of pairs found at different similarity cutoffs.
+    The "elbow" on this plot indicates a point of diminishing returns—the optimal cutoff
+    that captures the most significant duplicates without including too many dissimilar pairs.
+
+    We will proceed with an empirically chosen default threshold of 0.85. This value is
+    a common baseline as it typically represents a strong textual overlap, allowing for
+    minor variations (like typos or rephrasing) while still ensuring the core content is
+    the same. 
+    """)
+
 
 if __name__ == '__main__':
     main()
 
 ```
 
+    
+        --- Methodological Summary & Plot Explanation ---
+        To identify similar rows, this script employs a standard NLP vector space model.
+        First, each row's text is converted into a numerical vector using a Bag-of-Ngrams approach
+        (counting both single words and two-word phrases).
+    
+        The similarity between these vectors is then calculated using Cosine Similarity.
+        This metric evaluates the cosine of the angle between two vectors, effectively measuring
+        how similar their content is, irrespective of the total length of the text. A score
+        of 1.0 means the content is proportionally identical.
+    
+        The plot shows the number of pairs found at different similarity cutoffs.
+        The "elbow" on this plot indicates a point of diminishing returns—the optimal cutoff
+        that captures the most significant duplicates without including too many dissimilar pairs.
+    
+        We will proceed with an empirically chosen default threshold of 0.85. This value is
+        a common baseline as it typically represents a strong textual overlap, allowing for
+        minor variations (like typos or rephrasing) while still ensuring the core content is
+        the same. 
+        
     Success! Spreadsheet 'Principal' loaded into a DataFrame.
     Preserved 'Cód.' column as Original_ID and dropped the original.
     
@@ -577,7 +322,8 @@ if __name__ == '__main__':
     Full report saved to 'similar_rows_report.csv'
 
 
-## Carregando a base pós análise qualitativa
+## 2.1 Loading data from cleaned up spreadsheet after the Qualitative Analysis
+Open-ended survey responses were systematically analyzed to transform unstructured text into categorical variables for statistical analysis. Through an inductive coding process, categories and themes were derived directly from the response content to build a comprehensive codebook. This involved multi-dimensional coding for complex answers and synthesizing individual codes into broader thematic blocks. The final output was a new set of numerically coded variables, which formed the dataset for the quantitative analysis.
 
 
 ```python
@@ -618,7 +364,7 @@ except Exception as e:
     Success! Your spreadsheet has been loaded into a DataFrame.
 
 
-## Mostrando algumas linhas da base de dados Análise estatística Q1_corrigido
+## 2.2 Showing some lines of the dataset
 
 
 ```python
@@ -941,7 +687,7 @@ df
 
 
 
-## Criando um banco de dados relacional
+## 2.3 Converting the set of spreadsheets into a relational database for table creation
 
 
 ```python
@@ -1149,177 +895,8 @@ if __name__ == '__main__':
     Migration complete! The database 'ceua_analysis_v3.db' is correct and ready for use.
 
 
-
-```python
-# import pandas as pd
-# import gspread
-# import sqlite3
-# from sqlite3 import Error
-# import re
-
-# # --- Configuration ---
-# DATABASE_NAME = 'ceua_analysis_v3.db'
-# SPREADSHEET_NAME = 'Análise estatística Q1_corrigido'
-# KEY_FILE_PATH = 'data-analysis-ceuas-887bb6706d4f.json'
-
-# def connect_and_load_gsheet(key_path, sheet_name):
-#     """Loads the Google Sheet into a pandas DataFrame."""
-#     try:
-#         gc = gspread.service_account(filename=key_path)
-#         spreadsheet = gc.open(sheet_name)
-#         worksheet = spreadsheet.get_worksheet(0)
-#         data = worksheet.get_all_values()
-#         headers = [h.strip() for h in data.pop(0)]
-#         df = pd.DataFrame(data, columns=headers)
-#         print("Success: Google Sheet loaded.")
-#         return df
-#     except Exception as e:
-#         print(f"Error loading Google Sheet: {e}")
-#         return None
-
-# def create_connection(db_file):
-#     """Creates a SQLite database connection."""
-#     conn = None
-#     try:
-#         conn = sqlite3.connect(db_file)
-#         return conn
-#     except Error as e:
-#         print(e)
-#     return conn
-
-# def main():
-#     """Performs the complete, correct database migration."""
-#     df = connect_and_load_gsheet(KEY_FILE_PATH, SPREADSHEET_NAME)
-#     if df is None:
-#         return
-
-#     conn = create_connection(DATABASE_NAME)
-#     if conn is None:
-#         return
-        
-#     cursor = conn.cursor()
-    
-#     # 1. Clear any old structure for a fresh start.
-#     print("\n--- Clearing database for a fresh start ---")
-#     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")
-#     tables = cursor.fetchall()
-#     for table_name in tables:
-#         cursor.execute(f"DROP TABLE IF EXISTS {table_name[0]}")
-#     print(f"Cleared {len(tables)} old tables.")
-
-#     # 2. Define and Create the DEFINITIVE Schema.
-#     print("\n--- Creating new, complete relational schema ---")
-    
-#     # Lookup Tables
-#     codified_columns = {
-#         "Religiao_codificado(8)": "Religions",
-#         "Justifique_dever_assumir_relatoria_codificado(25)": "JustificativaRelatoriaLookup",
-#         "Justifique_SPA_deve_ter_formacao_aberta_codificado(27)": "JustificativaFormacaoLookup",
-#         "Papel_na_CEUA_codificado(28)": "PapelCEUALookup",
-#         "Funcao_administrativa_na_CEUA_codificado(32)": "FuncaoAdminLookup",
-#         "Justifique_experimentacao_animal_ser_mal_necessario_codificado(45)": "JustificativaMalNecessarioLookup",
-#         "Na_avaliacao_de_danos_e_beneficios_o_que_e_importante_codificada(47)": "AvaliacaoDanosBeneficiosLookup"
-#     }
-#     for table_name in codified_columns.values():
-#         cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} (id INTEGER PRIMARY KEY, name TEXT NOT NULL);")
-#         print(f"Table '{table_name}' created.")
-
-#     # Main Respondents table with core info
-#     cursor.execute("""
-#     CREATE TABLE IF NOT EXISTS Respondents (
-#         "Cod." INTEGER PRIMARY KEY,
-#         "Ativo" BOOLEAN NOT NULL,
-#         "3. Idade" TEXT,
-#         "4. Genero" TEXT
-#     );""")
-#     print("Table 'Respondents' created.")
-
-#     # SurveyAnswers table for all other columns to ensure no data is lost
-#     core_cols = {'Cod.', 'Ativo', '3. Idade', '4. Genero'}
-#     survey_answer_cols = [f'"{col}" TEXT' for col in df.columns if col not in core_cols and col.strip() != '']
-#     survey_answers_table_sql = f"""
-#     CREATE TABLE IF NOT EXISTS SurveyAnswers (
-#         AnswerID INTEGER PRIMARY KEY AUTOINCREMENT,
-#         RespondentID INTEGER NOT NULL UNIQUE,
-#         {', '.join(survey_answer_cols)},
-#         FOREIGN KEY (RespondentID) REFERENCES Respondents ("Cod.")
-#     );"""
-#     cursor.execute(survey_answers_table_sql)
-#     print("Table 'SurveyAnswers' created to hold all original columns.")
-    
-#     # 3. Populate Lookup Tables
-#     print("\n--- Populating Lookup Tables ---")
-#     religion_data = [(1, 'Ateismo/Agnosticismo'),(2, 'Catolicismo'),(3, 'Cristãos outros/protestantes/evangélicos'),(4, 'Espiritismo'),(5, 'Não segue religião específica'),(6, 'Outras/Não respondeu'),(7, 'Religiões Afrobrasileiras')]
-#     justificativa_relatoria_data = [(0, "Não opinou; declarou não ter opinião; declarou algo não definível"),(1, "Falta de Competências, Conhecimentos Técnicos/Científicos (incluindo em BEA), treinamento, formação superior ou capacidades (incluindo argumentativa). Falta de imparcialidade/Antiético;SPA é passional/pode haver extremismo e conflito; Pessoas de dificil convivência"),(2, "Falta de engajamento, participação, comunicação/contato, presença, constância, abertura, diálogo/não há interesse por participar. Falta de engajamento da SPA; dificuldade em encontrar representantes"),(3, "Desde que: tenha formação superior ou conhecimento técnico/científico, ou receba ajuda/orientação/contribuição de outro membro/conheça as normativas do CONCEA/seja qualificado/tenha disponibilidade."),(4, "SPA tem competência/ Por ser membro de uma sociedade protetora deve ter conhecimento de ética e legislações pertinentes ao bem-estar animal."),(5, "Contribuição positiva: Gera Aprendizado para a CEUA ou para o membro SPA ou aumenta engajamento do SPA, visão externa e Diversidade de opiniões ajudam, melhor distribuição de tarefas. Função educativa (para SPA ou a CEUA ). Positivo para a defesa ou proteção dos animais, positivo para o BEA.Representam os interesses dos animais; protegem decisão ética/correta."),(6, "Respeito à Isonomia, Imparcialidade, acesso igualitário, igualdade, inclusão, diversidade de opiniões/pois a CEUA é multidisciplinar. Não deve haver diferenciação. A regra é a mesma para todos/A decisão final é coletiva/colegiada. Direito; Representatividade"),(7, "Não é função do SPA. Regra do CONCEA, Papel exclusivo, para membros institucionais, internos ou com certos papeis (médico veterinário, zootecnista ou biólogo). Papel exclusivo de certos membros; Riscos (confidencialidade). Desnecessário; não há benefício; não acrescenta; os outros membros são suficientes; indiferente"),(8, "Falta de imparcialidade/Antiético;SPA é passional/pode haver extremismo e conflito; Pessoas de dificil convivência")]
-#     justificativa_formacao_data = [(0, "Não opinou; declarou não ter opinião; declarou algo não definível"),(1, "É necessário: para entender, avaliar e contribuir. Para estar no nível apropriado/conseguir entender e dialogar os proponentes de pesquisa e seus pares. Para fazer Avaliação técnica. O entendimento dos projetos requer noções de estatistica, delineamento experimental; manipulação de animais, ciências agrárias. Para poder assumir relatoria de protocolos; para dar parecer, avaliar protocolos. Conhecimento acadêmico básico/nível superior. Para ter conhecimento teórico em vários assuntos, o que é muito importante. Graduação em geral contribui, sem especificar área."),(2, "Evitar Imparcialidade, achismo; \"fundamentalismo\"; fanatismo, atitude anti cientifica, paixoes, realmente contribuir, ter visão mais racional da proteção aos animais, evitar viés emocional."),(3, "Não é necessário; As habilidades e conhecimentos importantes para a função não dependem de formação academica. Não é necessário mas é desejável. Um curso ou algum tipo de capacitação poderia resolver"),(4, "É preciso ter Conhecimentos relevantes à proteção animal, para cumporirem o papel de defesa e cuidado com os animais. Conhecimento em ética, direito dos animais. Conhecimentos especificos: anatomia sobre a espécie que se defende; particularidades de cada espécie; legislação, bem-estar animal."),(5, "Pode ser uma Exigência negativa: Necessidade de formação pode ser negativo: não ser representativo da siociedade, restringir participação, reduzir visão diferente"),(6, "Para entender a importancia do uso de animais")]
-#     papel_ceua_data = [(1, "Biólogo (a)"),(2, "Consultor Ad-hoc"),(3, "Docente"),(4, "Incerto"),(5, "Médico(a) Veterinário (a)"),(6, "Representantes de outras áreas"),(7, "Pesquisador(a)"),(8, "Representante da Sociedade Protetora de Animais")]
-#     funcao_admin_data = [(1, "Coordenador"),(2, "Não ocupo nenhuma função administrativa"),(3, "Secretário"),(4, "Vice-coordenador")]
-    
-#     # NEW: Data for JustificativaMalNecessarioLookup
-#     justificativa_mal_necessario_data = [
-#         (0, "Não clasificável"),
-#         (1, "Discorda que seja um mal: Respostas que discordam da ideia de que a experimentação animal seja um mal, especialmente quando seguem preceitos éticos. Não é mal, é só necessário -aparente incomodo com a afirmação. Críticas à pergunta, considera ofensiva. Foco em apontar que não é um mal. Parece não entender a complexidade ética da pergunta."),
-#         (2, "Confiança em Métodos Alternativos: Respostas que confiam em métodos alternativos, incluindo modelos in vitro e métodos já existentes ou em desenvolvimento. Menciona expectativa de quem em breve não seja mais necessário."),
-#         (3, "Crítica à Experimentação: Respostas que criticam ou questionam a necessidade de animais ou manifestam incômodo com práticas de uso de animais atual. Crítica à quantidade usada. Muitos estudos poderiam ser substituidos. Aponta resistência dos pesquisadores, na busca por alternativas."),
-#         (4, "confiança na ética e Responsabilidade: Respostas que destacam a importância de seguir protocolos éticos, os 3Rs, e a responsabilidade dos pesquisadores. Basta seguir os 3Rs"),
-#         (5, "Condicional: Respostas que mencionam que depende, que a experimentação é necessária em alguns casos, ou enquanto as técnicas de substituição não forem aprimoradas ou disponíveis: Ainda é necessário. Ou Dependendo do objetivo. Se for para o próprio animal. Foco na justificativa."),
-#         (6, "Limitações das alternativas: Respostas que apontam limitações dos métodos alternativos ou falta de recursos."),
-#         (7, "Avanços Científicos e Benefícios para a Humanidade: Respostas que justificam a experimentação animal destacando os avanços científicos e os benefícios resultantes para a saúde e o bem-estar humano. Foco nos fins. Alegação de que é necessário ou ainda é necessário."),
-#         (8, "Confiança no modelo Animal: Engloba respostas que afirmam a adequabilidade ou superioridade do modelo animal enquanro método, reconhecendo a confiança nos métodos atuais, incluindo refinamento e redução, e a dificuldade de substituição em certos contextos. Menciona ter sido útil no passado. Sugere que este é o jeito de fazer ciência, sem entrar em questões éticas. Foca na vantagem do método"),
-#         (9, "destaca o dano para o animal")
-#     ]
-
-#     cursor.executemany("INSERT OR IGNORE INTO Religions (id, name) VALUES (?, ?)", religion_data)
-#     cursor.executemany("INSERT OR IGNORE INTO JustificativaRelatoriaLookup (id, name) VALUES (?, ?)", justificativa_relatoria_data)
-#     cursor.executemany("INSERT OR IGNORE INTO JustificativaFormacaoLookup (id, name) VALUES (?, ?)", justificativa_formacao_data)
-#     cursor.executemany("INSERT OR IGNORE INTO PapelCEUALookup (id, name) VALUES (?, ?)", papel_ceua_data)
-#     cursor.executemany("INSERT OR IGNORE INTO FuncaoAdminLookup (id, name) VALUES (?, ?)", funcao_admin_data)
-#     cursor.executemany("INSERT OR IGNORE INTO JustificativaMalNecessarioLookup (id, name) VALUES (?, ?)", justificativa_mal_necessario_data)
-#     print("Populated all available lookup tables with provided meanings.")
-
-#     # Populate other lookup tables with placeholders
-#     populated_tables = ["Religions", "JustificativaRelatoriaLookup", "JustificativaFormacaoLookup", "PapelCEUALookup", "FuncaoAdminLookup", "JustificativaMalNecessarioLookup"]
-#     for original_col, table_name in codified_columns.items():
-#         if table_name not in populated_tables:
-#             unique_codes = df[original_col].dropna().unique()
-#             for code in unique_codes:
-#                 if str(code).strip():
-#                     try:
-#                         cursor.execute(f"INSERT OR IGNORE INTO {table_name} (id, name) VALUES (?, ?)", (int(code), f"Meaning for code {code}"))
-#                     except (ValueError, TypeError): pass
-#             print(f"Populated '{table_name}' with placeholder values.")
-#     conn.commit()
-
-#     # 4. Populate Main Data Tables
-#     print("\n--- Populating main data tables ---")
-#     survey_cols_for_insert = [col for col in df.columns if col not in core_cols and col.strip() != '']
-#     quoted_survey_cols = ', '.join([f'"{col}"' for col in survey_cols_for_insert])
-#     placeholders = ', '.join(['?'] * (len(survey_cols_for_insert) + 1))
-#     sql_insert_survey = f"INSERT INTO SurveyAnswers (RespondentID, {quoted_survey_cols}) VALUES ({placeholders})"
-    
-#     for index, row in df.iterrows():
-#         if pd.isna(row['Cod.']) or str(row['Cod.']).strip() == '': continue
-        
-#         respondent_id = int(row['Cod.'])
-#         is_active = True if str(row.get('Ativo', '')).strip().upper() == 'TRUE' else False
-        
-#         cursor.execute('INSERT INTO Respondents ("Cod.", "Ativo", "3. Idade", "4. Genero") VALUES (?, ?, ?, ?)',
-#                        (respondent_id, is_active, row.get('3. Idade'), row.get('4. Genero')))
-        
-#         survey_values = [row.get(col, None) for col in survey_cols_for_insert]
-#         cursor.execute(sql_insert_survey, [respondent_id] + survey_values)
-
-#     conn.commit()
-#     conn.close()
-    
-#     print(f"\nMigration complete! The database 'ceua_analysis_v3.db' is correct and ready for use.")
-
-# if __name__ == '__main__':
-#     main()
-
-```
-
-#### Analise univariada
+## 3. Univariate Analysis
+Here we are examining a single variable at a time to understand its core characteristics. The main goal is to describe and summarize the data's properties. 
 
 
 ```python
@@ -1489,7 +1066,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_18_2.png)
+![png](output_17_2.png)
     
 
 
@@ -1629,7 +1206,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_19_2.png)
+![png](output_18_2.png)
     
 
 
@@ -1771,7 +1348,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_20_2.png)
+![png](output_19_2.png)
     
 
 
@@ -1941,7 +1518,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_21_2.png)
+![png](output_20_2.png)
     
 
 
@@ -2083,7 +1660,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_22_2.png)
+![png](output_21_2.png)
     
 
 
@@ -2222,7 +1799,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_23_2.png)
+![png](output_22_2.png)
     
 
 
@@ -2733,7 +2310,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_26_2.png)
+![png](output_25_2.png)
     
 
 
@@ -2924,7 +2501,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_27_2.png)
+![png](output_26_2.png)
     
 
 
@@ -3069,7 +2646,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_28_2.png)
+![png](output_27_2.png)
     
 
 
@@ -3215,13 +2792,13 @@ if __name__ == '__main__':
 
     /home/leon/anaconda3/lib/python3.10/site-packages/seaborn/categorical.py:1273: FutureWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
       .apply(aggregator, agg_var)
-    /tmp/ipykernel_15051/3732651780.py:81: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+    /tmp/ipykernel_30615/3732651780.py:81: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
       ax.set_yticklabels(wrapped_labels)
 
 
 
     
-![png](output_29_2.png)
+![png](output_28_2.png)
     
 
 
@@ -3814,6 +3391,10 @@ if __name__ == '__main__':
 
 ```
 
+    /tmp/ipykernel_30615/397042003.py:149: FutureWarning: The behavior of array concatenation with empty entries is deprecated. In a future version, this will no longer exclude empty items when determining the result dtype. To retain the old behavior, exclude the empty entries before the concat operation.
+      df[col] = numeric_part.combine_first(text_part)
+
+
     Success: Loaded raw data from database.
     Preprocessing complete. Matrix will be built with 369 complete rows.
     
@@ -3903,13 +3484,9 @@ if __name__ == '__main__':
     ================================================================================
 
 
-    /tmp/ipykernel_15051/397042003.py:149: FutureWarning: The behavior of array concatenation with empty entries is deprecated. In a future version, this will no longer exclude empty items when determining the result dtype. To retain the old behavior, exclude the empty entries before the concat operation.
-      df[col] = numeric_part.combine_first(text_part)
-
-
 
     
-![png](output_32_2.png)
+![png](output_31_2.png)
     
 
 
@@ -4119,18 +3696,18 @@ if __name__ == '__main__':
     
 
 
-    /tmp/ipykernel_15051/3014332350.py:65: FutureWarning: 
+    /tmp/ipykernel_30615/3014332350.py:65: FutureWarning: 
     
     Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `x` variable to `hue` and set `legend=False` for the same effect.
     
       ax = sns.violinplot(x='IsVegan', y='SufferingScale', data=df,
-    /tmp/ipykernel_15051/3014332350.py:70: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+    /tmp/ipykernel_30615/3014332350.py:70: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
       ax.set_xticklabels(['Non-Vegan/Vegetarian', 'Vegan/Vegetarian'])
 
 
 
     
-![png](output_33_2.png)
+![png](output_32_2.png)
     
 
 
@@ -4430,7 +4007,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_34_1.png)
+![png](output_33_1.png)
     
 
 
@@ -4699,7 +4276,7 @@ if __name__ == '__main__':
 
 
     
-![png](output_35_2.png)
+![png](output_34_2.png)
     
 
 
