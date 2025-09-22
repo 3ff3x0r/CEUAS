@@ -7511,33 +7511,53 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8b3502be-a408-4299-9df8-f2cf55fbccc3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59adfbcb-5f95-4bb7-8538-0ea2c374a6d8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="An%C3%A1lise-Estat%C3%ADstica-do-Question%C3%A1rio-1-sobre-CEUAs">Análise Estatística do Questionário 1 sobre CEUAs<a class="anchor-link" href="#An%C3%A1lise-Estat%C3%ADstica-do-Question%C3%A1rio-1-sobre-CEUAs">¶</a></h1>
+<h1 id="Statistical-Analysis-of-CEUA-Survey">Statistical Analysis of CEUA Survey<a class="anchor-link" href="#Statistical-Analysis-of-CEUA-Survey">¶</a></h1>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=db800f1d-f4fb-4924-b3d5-3eb56485ffe4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b6ab0d8-50bb-4133-967e-eb4180474f6a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Instala%C3%A7%C3%A3o-de-bibliotecas-necess%C3%A1rias">Instalação de bibliotecas necessárias<a class="anchor-link" href="#Instala%C3%A7%C3%A3o-de-bibliotecas-necess%C3%A1rias">¶</a></h2>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ec89fa8f-6942-4b49-989b-8aa29ac47da4">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a25abe2c-49f9-45d2-b6e4-7d72a33be33d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7ad413e6-3a69-45b0-8df2-8ba061241a11">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="1.-Installing-external-libraries-needed">1. Installing external libraries needed<a class="anchor-link" href="#1.-Installing-external-libraries-needed">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=148a5b03-5bc4-42b0-851e-1d3b948b5628">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="ch">#!pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client statsmodels gspread oauth2client</span>
@@ -7557,7 +7577,42 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Importa%C3%A7%C3%A3o-das-bibliotecas-usadas-na-an%C3%A1lise">Importação das bibliotecas usadas na análise<a class="anchor-link" href="#Importa%C3%A7%C3%A3o-das-bibliotecas-usadas-na-an%C3%A1lise">¶</a></h2>
+<h2 id="1.1-Importing-common-libraries-for-analysis">1.1 Importing common libraries for analysis<a class="anchor-link" href="#1.1-Importing-common-libraries-for-analysis">¶</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8691e18a-9967-4927-97a8-b37e10450ad5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gspread</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">nltk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">nltk.corpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">triu</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="c1">#import os</span>
+<span class="c1">#import io</span>
+<span class="c1">#from google.oauth2 import service_account</span>
+<span class="c1">#from googleapiclient.discovery import build</span>
+<span class="c1">#from googleapiclient.http import MediaIoBaseDownload</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">oauth2client.service_account</span><span class="w"> </span><span class="kn">import</span> <span class="n">ServiceAccountCredentials</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gspread</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -7630,41 +7685,6 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=8691e18a-9967-4927-97a8-b37e10450ad5">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gspread</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">nltk</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">nltk.corpus</span><span class="w"> </span><span class="kn">import</span> <span class="n">stopwords</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_extraction.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">CountVectorizer</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.sparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">triu</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-
-<span class="c1">#import os</span>
-<span class="c1">#import io</span>
-<span class="c1">#from google.oauth2 import service_account</span>
-<span class="c1">#from googleapiclient.discovery import build</span>
-<span class="c1">#from googleapiclient.http import MediaIoBaseDownload</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">oauth2client.service_account</span><span class="w"> </span><span class="kn">import</span> <span class="n">ServiceAccountCredentials</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gspread</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=919bf03d-7a32-477a-b8bf-c7482674d6d5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7672,325 +7692,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Importando-dados-atualizados-a-partir-do-Google-Drive">Importando dados atualizados a partir do Google Drive<a class="anchor-link" href="#Importando-dados-atualizados-a-partir-do-Google-Drive">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b5082219-b8da-43d7-90a0-0ce3c06bb8f4">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Usando a base de dados original, obtida do Google Forms, vamos analizar as semelhanças entre as respostas para rejeitar respostas que formam vetores 85% ou mais similares, usando a regra do cotovelo.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=95bc375e-1e64-4990-b575-196e619fa3a1">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># # --- NLTK Stopwords Setup ---</span>
-<span class="c1"># # Download stopwords list if not already present</span>
-<span class="c1"># try:</span>
-<span class="c1">#     stopwords.words('portuguese')</span>
-<span class="c1"># except LookupError:</span>
-<span class="c1">#     print("Downloading nltk stopwords for Portuguese...")</span>
-<span class="c1">#     nltk.download('stopwords')</span>
-
-<span class="c1"># # --- Configuration ---</span>
-<span class="c1"># SPREADSHEET_NAME = 'Principal'</span>
-<span class="c1"># KEY_FILE_PATH = 'data-analysis-ceuas-887bb6706d4f.json'</span>
-
-<span class="c1"># def load_data(sheet_name, key_path):</span>
-<span class="c1">#     """Connects to Google Sheets and loads the specified sheet into a DataFrame."""</span>
-<span class="c1">#     try:</span>
-<span class="c1">#         gc = gspread.service_account(filename=key_path)</span>
-<span class="c1">#         spreadsheet = gc.open(sheet_name)</span>
-<span class="c1">#         worksheet = spreadsheet.get_worksheet(0)</span>
-<span class="c1">#         data = worksheet.get_all_values()</span>
-<span class="c1">#         headers = data.pop(0)</span>
-<span class="c1">#         df = pd.DataFrame(data, columns=headers)</span>
-<span class="c1">#         print(f"Success! Spreadsheet '{sheet_name}' loaded into a DataFrame.")</span>
-<span class="c1">#         return df</span>
-<span class="c1">#     except FileNotFoundError:</span>
-<span class="c1">#         print(f"ERROR: The key file was not found at '{key_path}'.")</span>
-<span class="c1">#     except gspread.exceptions.SpreadsheetNotFound:</span>
-<span class="c1">#         print(f"ERROR: Spreadsheet '{sheet_name}' not found.")</span>
-<span class="c1">#     except Exception as e:</span>
-<span class="c1">#         print(f"An unexpected error occurred during data loading: {e}")</span>
-<span class="c1">#     return None</span>
-
-<span class="c1"># def preprocess_data(df):</span>
-<span class="c1">#     """Prepares the DataFrame for analysis by handling IDs and combining text."""</span>
-<span class="c1">#     if 'Cód.' in df.columns:</span>
-<span class="c1">#         df['Original_ID'] = df['Cód.'].copy()</span>
-<span class="c1">#         df = df.drop(columns=['Cód.'])</span>
-<span class="c1">#         print("Preserved 'Cód.' column as Original_ID and dropped the original.")</span>
-<span class="c1">#     else:</span>
-<span class="c1">#         print("'Cód.' column not found - using 1-based row numbers as Original_ID.")</span>
-<span class="c1">#         df['Original_ID'] = np.arange(len(df)) + 1</span>
-    
-<span class="c1">#     columns_to_compare = [col for col in df.columns if col != 'Original_ID']</span>
-<span class="c1">#     df['Combined'] = df[columns_to_compare].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)</span>
-<span class="c1">#     df_filtered = df[df['Combined'].str.len() &gt; 10].reset_index(drop=True)</span>
-    
-<span class="c1">#     return df_filtered, columns_to_compare</span>
-
-<span class="c1"># def plot_threshold_analysis(df, text_column, stop_words_list):</span>
-<span class="c1">#     """Calculates similarity and plots the number of similar pairs vs. threshold."""</span>
-<span class="c1">#     print("\n--- Analyzing Similarity Thresholds ---")</span>
-<span class="c1">#     vectorizer = CountVectorizer(</span>
-<span class="c1">#         lowercase=True,</span>
-<span class="c1">#         stop_words=stop_words_list,</span>
-<span class="c1">#         ngram_range=(1, 2),</span>
-<span class="c1">#         min_df=2</span>
-<span class="c1">#     )</span>
-<span class="c1">#     text_matrix = vectorizer.fit_transform(df[text_column])</span>
-<span class="c1">#     cosine_similarities = cosine_similarity(text_matrix)</span>
-    
-<span class="c1">#     threshold_values = np.arange(0.75, 1.0, 0.02)</span>
-<span class="c1">#     similar_rows_counts = []</span>
-    
-<span class="c1">#     upper_triangle = triu(cosine_similarities, k=1)</span>
-
-<span class="c1">#     for threshold in threshold_values:</span>
-<span class="c1">#         similar_indices = np.argwhere(upper_triangle &gt;= threshold)</span>
-<span class="c1">#         similar_rows_counts.append(len(similar_indices))</span>
-        
-<span class="c1">#     plt.figure(figsize=(10, 6))</span>
-<span class="c1">#     plt.plot(threshold_values, similar_rows_counts, marker='o', linestyle='-')</span>
-<span class="c1">#     plt.xlabel('Similarity Threshold')</span>
-<span class="c1">#     plt.ylabel('Number of Similar Pairs Found')</span>
-<span class="c1">#     plt.title('Effect of Similarity Threshold on Number of Duplicates Found')</span>
-<span class="c1">#     plt.grid(True)</span>
-<span class="c1">#     plt.xticks(np.arange(0.75, 1.0, 0.05))</span>
-<span class="c1">#     plt.show()</span>
-<span class="c1">#     print("Plot generated to help choose a similarity cutoff.")</span>
-
-
-<span class="c1"># def find_similar_rows(df, text_column, stop_words_list, threshold=0.85):</span>
-<span class="c1">#     """Vectorizes text and finds pairs of rows with cosine similarity above a threshold."""</span>
-<span class="c1">#     vectorizer = CountVectorizer(</span>
-<span class="c1">#         lowercase=True,</span>
-<span class="c1">#         stop_words=stop_words_list, # Use the provided list</span>
-<span class="c1">#         ngram_range=(1, 2),</span>
-<span class="c1">#         min_df=2</span>
-<span class="c1">#     )</span>
-<span class="c1">#     text_matrix = vectorizer.fit_transform(df[text_column])</span>
-<span class="c1">#     cosine_similarities = cosine_similarity(text_matrix)</span>
-    
-<span class="c1">#     upper_triangle = triu(cosine_similarities, k=1)</span>
-<span class="c1">#     similar_indices = np.argwhere(upper_triangle &gt;= threshold)</span>
-    
-<span class="c1">#     return [(i, j, cosine_similarities[i, j]) for i, j in similar_indices]</span>
-
-<span class="c1"># def highlight_differences(text1, text2):</span>
-<span class="c1">#     """Highlights differences between two texts using HTML formatting."""</span>
-<span class="c1">#     # Simple word-by-word comparison</span>
-<span class="c1">#     words1 = text1.split()</span>
-<span class="c1">#     words2 = text2.split()</span>
-    
-<span class="c1">#     highlighted1 = []</span>
-<span class="c1">#     highlighted2 = []</span>
-    
-<span class="c1">#     # Compare words and highlight differences</span>
-<span class="c1">#     for i in range(max(len(words1), len(words2))):</span>
-<span class="c1">#         if i &gt;= len(words1):</span>
-<span class="c1">#             highlighted2.append(f'&lt;span style="background-color: #ffcccc"&gt;{words2[i]}&lt;/span&gt;')</span>
-<span class="c1">#         elif i &gt;= len(words2):</span>
-<span class="c1">#             highlighted1.append(f'&lt;span style="background-color: #ffcccc"&gt;{words1[i]}&lt;/span&gt;')</span>
-<span class="c1">#         elif words1[i] != words2[i]:</span>
-<span class="c1">#             highlighted1.append(f'&lt;span style="background-color: #ffcccc"&gt;{words1[i]}&lt;/span&gt;')</span>
-<span class="c1">#             highlighted2.append(f'&lt;span style="background-color: #ffcccc"&gt;{words2[i]}&lt;/span&gt;')</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             highlighted1.append(words1[i])</span>
-<span class="c1">#             highlighted2.append(words2[i])</span>
-    
-<span class="c1">#     return ' '.join(highlighted1), ' '.join(highlighted2)</span>
-
-<span class="c1"># def generate_report(df, similar_pairs, columns_to_compare):</span>
-<span class="c1">#     """Generates a DataFrame report of the similar pairs found with detailed differences."""</span>
-<span class="c1">#     report_data = []</span>
-    
-<span class="c1">#     for i, j, similarity in similar_pairs:</span>
-<span class="c1">#         id1 = df.loc[i, 'Original_ID']</span>
-<span class="c1">#         id2 = df.loc[j, 'Original_ID']</span>
-        
-<span class="c1">#         row1_data = df.loc[i, columns_to_compare]</span>
-<span class="c1">#         row2_data = df.loc[j, columns_to_compare]</span>
-        
-<span class="c1">#         # Find differing columns</span>
-<span class="c1">#         diff_mask = row1_data != row2_data</span>
-<span class="c1">#         differing_columns = diff_mask.index[diff_mask].tolist()</span>
-        
-<span class="c1">#         # Create detailed difference report for each column</span>
-<span class="c1">#         column_differences = []</span>
-<span class="c1">#         for col in columns_to_compare:</span>
-<span class="c1">#             val1 = str(row1_data[col])</span>
-<span class="c1">#             val2 = str(row2_data[col])</span>
-            
-<span class="c1">#             if val1 != val2:</span>
-<span class="c1">#                 # Highlight the actual differences in the text</span>
-<span class="c1">#                 highlighted1, highlighted2 = highlight_differences(val1, val2)</span>
-<span class="c1">#                 column_differences.append({</span>
-<span class="c1">#                     'column': col,</span>
-<span class="c1">#                     'value_A': val1,</span>
-<span class="c1">#                     'value_B': val2,</span>
-<span class="c1">#                     'highlighted_A': highlighted1,</span>
-<span class="c1">#                     'highlighted_B': highlighted2</span>
-<span class="c1">#                 })</span>
-        
-<span class="c1">#         # Prepare content previews</span>
-<span class="c1">#         content_a = df.loc[i, 'Combined']</span>
-<span class="c1">#         content_b = df.loc[j, 'Combined']</span>
-        
-<span class="c1">#         # Highlight differences in the combined content</span>
-<span class="c1">#         highlighted_a, highlighted_b = highlight_differences(content_a, content_b)</span>
-        
-<span class="c1">#         report_data.append({</span>
-<span class="c1">#             'ID_A': id1,</span>
-<span class="c1">#             'ID_B': id2,</span>
-<span class="c1">#             'Similarity': round(similarity, 4),</span>
-<span class="c1">#             'Differing_Columns': ', '.join(differing_columns) if differing_columns else 'None',</span>
-<span class="c1">#             'Column_Differences': column_differences,</span>
-<span class="c1">#             'Content_A': content_a[:200] + '...' if len(content_a) &gt; 200 else content_a,</span>
-<span class="c1">#             'Content_B': content_b[:200] + '...' if len(content_b) &gt; 200 else content_b,</span>
-<span class="c1">#             'Highlighted_A': highlighted_a,</span>
-<span class="c1">#             'Highlighted_B': highlighted_b</span>
-<span class="c1">#         })</span>
-    
-<span class="c1">#     return pd.DataFrame(report_data)</span>
-
-<span class="c1"># def save_detailed_report(report_df, filename='detailed_similarity_report.html'):</span>
-<span class="c1">#     """Saves a detailed HTML report with highlighted differences."""</span>
-<span class="c1">#     # CSS style with escaped curly braces</span>
-<span class="c1">#     css_style = """</span>
-<span class="c1">#     &lt;style&gt;</span>
-<span class="c1">#         body {{ font-family: Arial, sans-serif; margin: 20px; }}</span>
-<span class="c1">#         .pair {{ border: 1px solid #ccc; margin-bottom: 20px; padding: 15px; border-radius: 5px; }}</span>
-<span class="c1">#         .header {{ background-color: #f0f0f0; padding: 10px; border-radius: 3px; }}</span>
-<span class="c1">#         .differences {{ margin-top: 10px; }}</span>
-<span class="c1">#         .column-diff {{ margin-bottom: 15px; }}</span>
-<span class="c1">#         .column-name {{ font-weight: bold; color: #333; }}</span>
-<span class="c1">#         .content {{ background-color: #f9f9f9; padding: 10px; border-radius: 3px; margin-top: 5px; }}</span>
-<span class="c1">#         .highlight {{ background-color: #ffcccc; }}</span>
-<span class="c1">#     &lt;/style&gt;</span>
-<span class="c1">#     """</span>
-    
-<span class="c1">#     html_content = f"""</span>
-<span class="c1">#     &lt;html&gt;</span>
-<span class="c1">#     &lt;head&gt;</span>
-<span class="c1">#         &lt;title&gt;Detailed Similarity Report&lt;/title&gt;</span>
-<span class="c1">#         {css_style}</span>
-<span class="c1">#     &lt;/head&gt;</span>
-<span class="c1">#     &lt;body&gt;</span>
-<span class="c1">#         &lt;h1&gt;Detailed Similarity Report&lt;/h1&gt;</span>
-<span class="c1">#         &lt;p&gt;Found {len(report_df)} similar pairs with similarity threshold ≥ 0.85&lt;/p&gt;</span>
-<span class="c1">#     """</span>
-    
-<span class="c1">#     for idx, row in report_df.iterrows():</span>
-<span class="c1">#         html_content += f"""</span>
-<span class="c1">#         &lt;div class="pair"&gt;</span>
-<span class="c1">#             &lt;div class="header"&gt;</span>
-<span class="c1">#                 &lt;h2&gt;Pair {idx+1}: ID {row['ID_A']} vs ID {row['ID_B']} (Similarity: {row['Similarity']})&lt;/h2&gt;</span>
-<span class="c1">#                 &lt;p&gt;Differing columns: {row['Differing_Columns']}&lt;/p&gt;</span>
-<span class="c1">#             &lt;/div&gt;</span>
-<span class="c1">#         """</span>
-        
-<span class="c1">#         # Add column differences</span>
-<span class="c1">#         if row['Column_Differences']:</span>
-<span class="c1">#             html_content += '&lt;div class="differences"&gt;&lt;h3&gt;Column Differences:&lt;/h3&gt;'</span>
-<span class="c1">#             for diff in row['Column_Differences']:</span>
-<span class="c1">#                 html_content += f"""</span>
-<span class="c1">#                 &lt;div class="column-diff"&gt;</span>
-<span class="c1">#                     &lt;p class="column-name"&gt;Column: {diff['column']}&lt;/p&gt;</span>
-<span class="c1">#                     &lt;div class="content"&gt;</span>
-<span class="c1">#                         &lt;p&gt;&lt;strong&gt;Row A:&lt;/strong&gt; {diff['highlighted_A']}&lt;/p&gt;</span>
-<span class="c1">#                         &lt;p&gt;&lt;strong&gt;Row B:&lt;/strong&gt; {diff['highlighted_B']}&lt;/p&gt;</span>
-<span class="c1">#                     &lt;/div&gt;</span>
-<span class="c1">#                 &lt;/div&gt;</span>
-<span class="c1">#                 """</span>
-<span class="c1">#             html_content += '&lt;/div&gt;'</span>
-        
-<span class="c1">#         # Add combined content comparison</span>
-<span class="c1">#         html_content += f"""</span>
-<span class="c1">#         &lt;div class="content-comparison"&gt;</span>
-<span class="c1">#             &lt;h3&gt;Combined Content Comparison:&lt;/h3&gt;</span>
-<span class="c1">#             &lt;div class="content"&gt;</span>
-<span class="c1">#                 &lt;p&gt;&lt;strong&gt;Row A (ID: {row['ID_A']}):&lt;/strong&gt;&lt;br&gt;{row['Highlighted_A']}&lt;/p&gt;</span>
-<span class="c1">#                 &lt;p&gt;&lt;strong&gt;Row B (ID: {row['ID_B']}):&lt;/strong&gt;&lt;br&gt;{row['Highlighted_B']}&lt;/p&gt;</span>
-<span class="c1">#             &lt;/div&gt;</span>
-<span class="c1">#         &lt;/div&gt;</span>
-<span class="c1">#         """</span>
-        
-<span class="c1">#         html_content += "&lt;/div&gt;"</span>
-    
-<span class="c1">#     html_content += """</span>
-<span class="c1">#     &lt;/body&gt;</span>
-<span class="c1">#     &lt;/html&gt;</span>
-<span class="c1">#     """</span>
-    
-<span class="c1">#     with open(filename, 'w', encoding='utf-8') as f:</span>
-<span class="c1">#         f.write(html_content)</span>
-    
-<span class="c1">#     print(f"Detailed HTML report saved to '{filename}'")</span>
-
-<span class="c1"># def main():</span>
-<span class="c1">#     """Main function to run the similarity analysis workflow."""</span>
-<span class="c1">#     df_raw = load_data(SPREADSHEET_NAME, KEY_FILE_PATH)</span>
-    
-<span class="c1">#     if df_raw is not None:</span>
-<span class="c1">#         df_processed, columns_to_compare = preprocess_data(df_raw.copy())</span>
-        
-<span class="c1">#         # Get the Portuguese stop words list</span>
-<span class="c1">#         portuguese_stopwords = stopwords.words('portuguese')</span>
-        
-<span class="c1">#         # --- Generate and show the plot first ---</span>
-<span class="c1">#         plot_threshold_analysis(df_processed, 'Combined', portuguese_stopwords)</span>
-        
-<span class="c1">#         # --- Then, proceed with the chosen threshold ---</span>
-<span class="c1">#         print(f"\n--- Finding pairs with similarity &gt;= 0.85 ---")</span>
-<span class="c1">#         similar_pairs = find_similar_rows(df_processed, 'Combined', portuguese_stopwords, threshold=0.85)</span>
-        
-<span class="c1">#         if similar_pairs:</span>
-<span class="c1">#             report_df = generate_report(df_processed, similar_pairs, columns_to_compare)</span>
-            
-<span class="c1">#             duplicate_ids_to_remove = sorted(list(set(report_df['ID_B'])))</span>
-<span class="c1">#             print(f"\nFound {len(report_df)} similar pairs.")</span>
-<span class="c1">#             print(f"Suggested rows to remove (duplicates): {', '.join(map(str, duplicate_ids_to_remove))}")</span>
-            
-<span class="c1">#             # Save CSV report</span>
-<span class="c1">#             csv_report = report_df.drop(columns=['Column_Differences', 'Highlighted_A', 'Highlighted_B'])</span>
-<span class="c1">#             csv_report.to_csv('similar_rows_report.csv', index=False)</span>
-<span class="c1">#             print("\nBasic report saved to 'similar_rows_report.csv'")</span>
-            
-<span class="c1">#             # Save detailed HTML report</span>
-<span class="c1">#             save_detailed_report(report_df)</span>
-            
-<span class="c1">#             # Print a few examples to console</span>
-<span class="c1">#             print("\n--- Example Differences Found ---")</span>
-<span class="c1">#             for idx, row in report_df.head(2).iterrows():</span>
-<span class="c1">#                 print(f"\nPair {idx+1}: ID {row['ID_A']} vs ID {row['ID_B']} (Similarity: {row['Similarity']})")</span>
-<span class="c1">#                 print(f"Differing columns: {row['Differing_Columns']}")</span>
-                
-<span class="c1">#                 if row['Column_Differences']:</span>
-<span class="c1">#                     for diff in row['Column_Differences'][:2]:  # Show first 2 column differences</span>
-<span class="c1">#                         print(f"  Column '{diff['column']}':")</span>
-<span class="c1">#                         print(f"    Row A: {diff['value_A'][:100]}{'...' if len(diff['value_A']) &gt; 100 else ''}")</span>
-<span class="c1">#                         print(f"    Row B: {diff['value_B'][:100]}{'...' if len(diff['value_B']) &gt; 100 else ''}")</span>
-<span class="c1">#         else:</span>
-<span class="c1">#             print("\nNo similar rows found above the threshold.")</span>
-
-<span class="c1"># if __name__ == '__main__':</span>
-<span class="c1">#     main()</span>
-</pre></div>
-</div>
+<h2 id="2.-Loading-data-from-GDrive">2. Loading data from GDrive<a class="anchor-link" href="#2.-Loading-data-from-GDrive">¶</a></h2>
 </div>
 </div>
 </div>
@@ -7999,7 +7701,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># --- NLTK Stopwords Setup ---</span>
@@ -8038,7 +7740,7 @@ a.anchor-link {
     <span class="k">if</span> <span class="s1">'Cód.'</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
         <span class="n">df</span><span class="p">[</span><span class="s1">'Original_ID'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Cód.'</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Cód.'</span><span class="p">])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"Preserved 'Cód.' column as Original_ID and dropped the original."</span><span class="p">)</span>
+        <span class="c1"># print("Preserved 'Cód.' column as Original_ID and dropped the original.")</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">"'Cód.' column not found - using 1-based row numbers as Original_ID."</span><span class="p">)</span>
         <span class="n">df</span><span class="p">[</span><span class="s1">'Original_ID'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
@@ -8147,6 +7849,27 @@ a.anchor-link {
             <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Full report saved to 'similar_rows_report.csv'"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">No similar rows found above the threshold."</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"""</span>
+<span class="s2">    --- Methodological Summary &amp; Plot Explanation ---</span>
+<span class="s2">    To identify similar rows, this script employs a standard NLP vector space model.</span>
+<span class="s2">    First, each row's text is converted into a numerical vector using a Bag-of-Ngrams approach</span>
+<span class="s2">    (counting both single words and two-word phrases).</span>
+
+<span class="s2">    The similarity between these vectors is then calculated using Cosine Similarity.</span>
+<span class="s2">    This metric evaluates the cosine of the angle between two vectors, effectively measuring</span>
+<span class="s2">    how similar their content is, irrespective of the total length of the text. A score</span>
+<span class="s2">    of 1.0 means the content is proportionally identical.</span>
+
+<span class="s2">    The plot shows the number of pairs found at different similarity cutoffs.</span>
+<span class="s2">    The "elbow" on this plot indicates a point of diminishing returns—the optimal cutoff</span>
+<span class="s2">    that captures the most significant duplicates without including too many dissimilar pairs.</span>
+
+<span class="s2">    We will proceed with an empirically chosen default threshold of 0.85. This value is</span>
+<span class="s2">    a common baseline as it typically represents a strong textual overlap, allowing for</span>
+<span class="s2">    minor variations (like typos or rephrasing) while still ensuring the core content is</span>
+<span class="s2">    the same. </span>
+<span class="s2">    """</span><span class="p">)</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
@@ -8162,7 +7885,27 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Success! Spreadsheet 'Principal' loaded into a DataFrame.
+<pre>
+    --- Methodological Summary &amp; Plot Explanation ---
+    To identify similar rows, this script employs a standard NLP vector space model.
+    First, each row's text is converted into a numerical vector using a Bag-of-Ngrams approach
+    (counting both single words and two-word phrases).
+
+    The similarity between these vectors is then calculated using Cosine Similarity.
+    This metric evaluates the cosine of the angle between two vectors, effectively measuring
+    how similar their content is, irrespective of the total length of the text. A score
+    of 1.0 means the content is proportionally identical.
+
+    The plot shows the number of pairs found at different similarity cutoffs.
+    The "elbow" on this plot indicates a point of diminishing returns—the optimal cutoff
+    that captures the most significant duplicates without including too many dissimilar pairs.
+
+    We will proceed with an empirically chosen default threshold of 0.85. This value is
+    a common baseline as it typically represents a strong textual overlap, allowing for
+    minor variations (like typos or rephrasing) while still ensuring the core content is
+    the same. 
+    
+Success! Spreadsheet 'Principal' loaded into a DataFrame.
 Preserved 'Cód.' column as Original_ID and dropped the original.
 
 --- Analyzing Similarity Thresholds ---
@@ -8198,7 +7941,7 @@ Full report saved to 'similar_rows_report.csv'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Carregando-a-base-p%C3%B3s-an%C3%A1lise-qualitativa">Carregando a base pós análise qualitativa<a class="anchor-link" href="#Carregando-a-base-p%C3%B3s-an%C3%A1lise-qualitativa">¶</a></h2>
+<h2 id="2.1-Loading-data-from-cleaned-up-spreadsheet-after-the-Qualitative-Analysis">2.1 Loading data from cleaned up spreadsheet after the Qualitative Analysis<a class="anchor-link" href="#2.1-Loading-data-from-cleaned-up-spreadsheet-after-the-Qualitative-Analysis">¶</a></h2><p>Open-ended survey responses were systematically analyzed to transform unstructured text into categorical variables for statistical analysis. Through an inductive coding process, categories and themes were derived directly from the response content to build a comprehensive codebook. This involved multi-dimensional coding for complex answers and synthesizing individual codes into broader thematic blocks. The final output was a new set of numerically coded variables, which formed the dataset for the quantitative analysis.</p>
 </div>
 </div>
 </div>
@@ -8266,7 +8009,7 @@ Full report saved to 'similar_rows_report.csv'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Mostrando-algumas-linhas-da-base-de-dados-An%C3%A1lise-estat%C3%ADstica-Q1_corrigido">Mostrando algumas linhas da base de dados Análise estatística Q1_corrigido<a class="anchor-link" href="#Mostrando-algumas-linhas-da-base-de-dados-An%C3%A1lise-estat%C3%ADstica-Q1_corrigido">¶</a></h2>
+<h2 id="2.2-Showing-some-lines-of-the-dataset">2.2 Showing some lines of the dataset<a class="anchor-link" href="#2.2-Showing-some-lines-of-the-dataset">¶</a></h2>
 </div>
 </div>
 </div>
@@ -8612,7 +8355,7 @@ Full report saved to 'similar_rows_report.csv'
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Criando-um-banco-de-dados-relacional">Criando um banco de dados relacional<a class="anchor-link" href="#Criando-um-banco-de-dados-relacional">¶</a></h2>
+<h2 id="2.3-Converting-the-set-of-spreadsheets-into-a-relational-database-for-table-creation">2.3 Converting the set of spreadsheets into a relational database for table creation<a class="anchor-link" href="#2.3-Converting-the-set-of-spreadsheets-into-a-relational-database-for-table-creation">¶</a></h2>
 </div>
 </div>
 </div>
@@ -8840,184 +8583,6 @@ Migration complete! The database 'ceua_analysis_v3.db' is correct and ready for 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=53c20cfd-86c6-4349-8457-6e2f8b060e39">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># import pandas as pd</span>
-<span class="c1"># import gspread</span>
-<span class="c1"># import sqlite3</span>
-<span class="c1"># from sqlite3 import Error</span>
-<span class="c1"># import re</span>
-
-<span class="c1"># # --- Configuration ---</span>
-<span class="c1"># DATABASE_NAME = 'ceua_analysis_v3.db'</span>
-<span class="c1"># SPREADSHEET_NAME = 'Análise estatística Q1_corrigido'</span>
-<span class="c1"># KEY_FILE_PATH = 'data-analysis-ceuas-887bb6706d4f.json'</span>
-
-<span class="c1"># def connect_and_load_gsheet(key_path, sheet_name):</span>
-<span class="c1">#     """Loads the Google Sheet into a pandas DataFrame."""</span>
-<span class="c1">#     try:</span>
-<span class="c1">#         gc = gspread.service_account(filename=key_path)</span>
-<span class="c1">#         spreadsheet = gc.open(sheet_name)</span>
-<span class="c1">#         worksheet = spreadsheet.get_worksheet(0)</span>
-<span class="c1">#         data = worksheet.get_all_values()</span>
-<span class="c1">#         headers = [h.strip() for h in data.pop(0)]</span>
-<span class="c1">#         df = pd.DataFrame(data, columns=headers)</span>
-<span class="c1">#         print("Success: Google Sheet loaded.")</span>
-<span class="c1">#         return df</span>
-<span class="c1">#     except Exception as e:</span>
-<span class="c1">#         print(f"Error loading Google Sheet: {e}")</span>
-<span class="c1">#         return None</span>
-
-<span class="c1"># def create_connection(db_file):</span>
-<span class="c1">#     """Creates a SQLite database connection."""</span>
-<span class="c1">#     conn = None</span>
-<span class="c1">#     try:</span>
-<span class="c1">#         conn = sqlite3.connect(db_file)</span>
-<span class="c1">#         return conn</span>
-<span class="c1">#     except Error as e:</span>
-<span class="c1">#         print(e)</span>
-<span class="c1">#     return conn</span>
-
-<span class="c1"># def main():</span>
-<span class="c1">#     """Performs the complete, correct database migration."""</span>
-<span class="c1">#     df = connect_and_load_gsheet(KEY_FILE_PATH, SPREADSHEET_NAME)</span>
-<span class="c1">#     if df is None:</span>
-<span class="c1">#         return</span>
-
-<span class="c1">#     conn = create_connection(DATABASE_NAME)</span>
-<span class="c1">#     if conn is None:</span>
-<span class="c1">#         return</span>
-        
-<span class="c1">#     cursor = conn.cursor()</span>
-    
-<span class="c1">#     # 1. Clear any old structure for a fresh start.</span>
-<span class="c1">#     print("\n--- Clearing database for a fresh start ---")</span>
-<span class="c1">#     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")</span>
-<span class="c1">#     tables = cursor.fetchall()</span>
-<span class="c1">#     for table_name in tables:</span>
-<span class="c1">#         cursor.execute(f"DROP TABLE IF EXISTS {table_name[0]}")</span>
-<span class="c1">#     print(f"Cleared {len(tables)} old tables.")</span>
-
-<span class="c1">#     # 2. Define and Create the DEFINITIVE Schema.</span>
-<span class="c1">#     print("\n--- Creating new, complete relational schema ---")</span>
-    
-<span class="c1">#     # Lookup Tables</span>
-<span class="c1">#     codified_columns = {</span>
-<span class="c1">#         "Religiao_codificado(8)": "Religions",</span>
-<span class="c1">#         "Justifique_dever_assumir_relatoria_codificado(25)": "JustificativaRelatoriaLookup",</span>
-<span class="c1">#         "Justifique_SPA_deve_ter_formacao_aberta_codificado(27)": "JustificativaFormacaoLookup",</span>
-<span class="c1">#         "Papel_na_CEUA_codificado(28)": "PapelCEUALookup",</span>
-<span class="c1">#         "Funcao_administrativa_na_CEUA_codificado(32)": "FuncaoAdminLookup",</span>
-<span class="c1">#         "Justifique_experimentacao_animal_ser_mal_necessario_codificado(45)": "JustificativaMalNecessarioLookup",</span>
-<span class="c1">#         "Na_avaliacao_de_danos_e_beneficios_o_que_e_importante_codificada(47)": "AvaliacaoDanosBeneficiosLookup"</span>
-<span class="c1">#     }</span>
-<span class="c1">#     for table_name in codified_columns.values():</span>
-<span class="c1">#         cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} (id INTEGER PRIMARY KEY, name TEXT NOT NULL);")</span>
-<span class="c1">#         print(f"Table '{table_name}' created.")</span>
-
-<span class="c1">#     # Main Respondents table with core info</span>
-<span class="c1">#     cursor.execute("""</span>
-<span class="c1">#     CREATE TABLE IF NOT EXISTS Respondents (</span>
-<span class="c1">#         "Cod." INTEGER PRIMARY KEY,</span>
-<span class="c1">#         "Ativo" BOOLEAN NOT NULL,</span>
-<span class="c1">#         "3. Idade" TEXT,</span>
-<span class="c1">#         "4. Genero" TEXT</span>
-<span class="c1">#     );""")</span>
-<span class="c1">#     print("Table 'Respondents' created.")</span>
-
-<span class="c1">#     # SurveyAnswers table for all other columns to ensure no data is lost</span>
-<span class="c1">#     core_cols = {'Cod.', 'Ativo', '3. Idade', '4. Genero'}</span>
-<span class="c1">#     survey_answer_cols = [f'"{col}" TEXT' for col in df.columns if col not in core_cols and col.strip() != '']</span>
-<span class="c1">#     survey_answers_table_sql = f"""</span>
-<span class="c1">#     CREATE TABLE IF NOT EXISTS SurveyAnswers (</span>
-<span class="c1">#         AnswerID INTEGER PRIMARY KEY AUTOINCREMENT,</span>
-<span class="c1">#         RespondentID INTEGER NOT NULL UNIQUE,</span>
-<span class="c1">#         {', '.join(survey_answer_cols)},</span>
-<span class="c1">#         FOREIGN KEY (RespondentID) REFERENCES Respondents ("Cod.")</span>
-<span class="c1">#     );"""</span>
-<span class="c1">#     cursor.execute(survey_answers_table_sql)</span>
-<span class="c1">#     print("Table 'SurveyAnswers' created to hold all original columns.")</span>
-    
-<span class="c1">#     # 3. Populate Lookup Tables</span>
-<span class="c1">#     print("\n--- Populating Lookup Tables ---")</span>
-<span class="c1">#     religion_data = [(1, 'Ateismo/Agnosticismo'),(2, 'Catolicismo'),(3, 'Cristãos outros/protestantes/evangélicos'),(4, 'Espiritismo'),(5, 'Não segue religião específica'),(6, 'Outras/Não respondeu'),(7, 'Religiões Afrobrasileiras')]</span>
-<span class="c1">#     justificativa_relatoria_data = [(0, "Não opinou; declarou não ter opinião; declarou algo não definível"),(1, "Falta de Competências, Conhecimentos Técnicos/Científicos (incluindo em BEA), treinamento, formação superior ou capacidades (incluindo argumentativa). Falta de imparcialidade/Antiético;SPA é passional/pode haver extremismo e conflito; Pessoas de dificil convivência"),(2, "Falta de engajamento, participação, comunicação/contato, presença, constância, abertura, diálogo/não há interesse por participar. Falta de engajamento da SPA; dificuldade em encontrar representantes"),(3, "Desde que: tenha formação superior ou conhecimento técnico/científico, ou receba ajuda/orientação/contribuição de outro membro/conheça as normativas do CONCEA/seja qualificado/tenha disponibilidade."),(4, "SPA tem competência/ Por ser membro de uma sociedade protetora deve ter conhecimento de ética e legislações pertinentes ao bem-estar animal."),(5, "Contribuição positiva: Gera Aprendizado para a CEUA ou para o membro SPA ou aumenta engajamento do SPA, visão externa e Diversidade de opiniões ajudam, melhor distribuição de tarefas. Função educativa (para SPA ou a CEUA ). Positivo para a defesa ou proteção dos animais, positivo para o BEA.Representam os interesses dos animais; protegem decisão ética/correta."),(6, "Respeito à Isonomia, Imparcialidade, acesso igualitário, igualdade, inclusão, diversidade de opiniões/pois a CEUA é multidisciplinar. Não deve haver diferenciação. A regra é a mesma para todos/A decisão final é coletiva/colegiada. Direito; Representatividade"),(7, "Não é função do SPA. Regra do CONCEA, Papel exclusivo, para membros institucionais, internos ou com certos papeis (médico veterinário, zootecnista ou biólogo). Papel exclusivo de certos membros; Riscos (confidencialidade). Desnecessário; não há benefício; não acrescenta; os outros membros são suficientes; indiferente"),(8, "Falta de imparcialidade/Antiético;SPA é passional/pode haver extremismo e conflito; Pessoas de dificil convivência")]</span>
-<span class="c1">#     justificativa_formacao_data = [(0, "Não opinou; declarou não ter opinião; declarou algo não definível"),(1, "É necessário: para entender, avaliar e contribuir. Para estar no nível apropriado/conseguir entender e dialogar os proponentes de pesquisa e seus pares. Para fazer Avaliação técnica. O entendimento dos projetos requer noções de estatistica, delineamento experimental; manipulação de animais, ciências agrárias. Para poder assumir relatoria de protocolos; para dar parecer, avaliar protocolos. Conhecimento acadêmico básico/nível superior. Para ter conhecimento teórico em vários assuntos, o que é muito importante. Graduação em geral contribui, sem especificar área."),(2, "Evitar Imparcialidade, achismo; \"fundamentalismo\"; fanatismo, atitude anti cientifica, paixoes, realmente contribuir, ter visão mais racional da proteção aos animais, evitar viés emocional."),(3, "Não é necessário; As habilidades e conhecimentos importantes para a função não dependem de formação academica. Não é necessário mas é desejável. Um curso ou algum tipo de capacitação poderia resolver"),(4, "É preciso ter Conhecimentos relevantes à proteção animal, para cumporirem o papel de defesa e cuidado com os animais. Conhecimento em ética, direito dos animais. Conhecimentos especificos: anatomia sobre a espécie que se defende; particularidades de cada espécie; legislação, bem-estar animal."),(5, "Pode ser uma Exigência negativa: Necessidade de formação pode ser negativo: não ser representativo da siociedade, restringir participação, reduzir visão diferente"),(6, "Para entender a importancia do uso de animais")]</span>
-<span class="c1">#     papel_ceua_data = [(1, "Biólogo (a)"),(2, "Consultor Ad-hoc"),(3, "Docente"),(4, "Incerto"),(5, "Médico(a) Veterinário (a)"),(6, "Representantes de outras áreas"),(7, "Pesquisador(a)"),(8, "Representante da Sociedade Protetora de Animais")]</span>
-<span class="c1">#     funcao_admin_data = [(1, "Coordenador"),(2, "Não ocupo nenhuma função administrativa"),(3, "Secretário"),(4, "Vice-coordenador")]</span>
-    
-<span class="c1">#     # NEW: Data for JustificativaMalNecessarioLookup</span>
-<span class="c1">#     justificativa_mal_necessario_data = [</span>
-<span class="c1">#         (0, "Não clasificável"),</span>
-<span class="c1">#         (1, "Discorda que seja um mal: Respostas que discordam da ideia de que a experimentação animal seja um mal, especialmente quando seguem preceitos éticos. Não é mal, é só necessário -aparente incomodo com a afirmação. Críticas à pergunta, considera ofensiva. Foco em apontar que não é um mal. Parece não entender a complexidade ética da pergunta."),</span>
-<span class="c1">#         (2, "Confiança em Métodos Alternativos: Respostas que confiam em métodos alternativos, incluindo modelos in vitro e métodos já existentes ou em desenvolvimento. Menciona expectativa de quem em breve não seja mais necessário."),</span>
-<span class="c1">#         (3, "Crítica à Experimentação: Respostas que criticam ou questionam a necessidade de animais ou manifestam incômodo com práticas de uso de animais atual. Crítica à quantidade usada. Muitos estudos poderiam ser substituidos. Aponta resistência dos pesquisadores, na busca por alternativas."),</span>
-<span class="c1">#         (4, "confiança na ética e Responsabilidade: Respostas que destacam a importância de seguir protocolos éticos, os 3Rs, e a responsabilidade dos pesquisadores. Basta seguir os 3Rs"),</span>
-<span class="c1">#         (5, "Condicional: Respostas que mencionam que depende, que a experimentação é necessária em alguns casos, ou enquanto as técnicas de substituição não forem aprimoradas ou disponíveis: Ainda é necessário. Ou Dependendo do objetivo. Se for para o próprio animal. Foco na justificativa."),</span>
-<span class="c1">#         (6, "Limitações das alternativas: Respostas que apontam limitações dos métodos alternativos ou falta de recursos."),</span>
-<span class="c1">#         (7, "Avanços Científicos e Benefícios para a Humanidade: Respostas que justificam a experimentação animal destacando os avanços científicos e os benefícios resultantes para a saúde e o bem-estar humano. Foco nos fins. Alegação de que é necessário ou ainda é necessário."),</span>
-<span class="c1">#         (8, "Confiança no modelo Animal: Engloba respostas que afirmam a adequabilidade ou superioridade do modelo animal enquanro método, reconhecendo a confiança nos métodos atuais, incluindo refinamento e redução, e a dificuldade de substituição em certos contextos. Menciona ter sido útil no passado. Sugere que este é o jeito de fazer ciência, sem entrar em questões éticas. Foca na vantagem do método"),</span>
-<span class="c1">#         (9, "destaca o dano para o animal")</span>
-<span class="c1">#     ]</span>
-
-<span class="c1">#     cursor.executemany("INSERT OR IGNORE INTO Religions (id, name) VALUES (?, ?)", religion_data)</span>
-<span class="c1">#     cursor.executemany("INSERT OR IGNORE INTO JustificativaRelatoriaLookup (id, name) VALUES (?, ?)", justificativa_relatoria_data)</span>
-<span class="c1">#     cursor.executemany("INSERT OR IGNORE INTO JustificativaFormacaoLookup (id, name) VALUES (?, ?)", justificativa_formacao_data)</span>
-<span class="c1">#     cursor.executemany("INSERT OR IGNORE INTO PapelCEUALookup (id, name) VALUES (?, ?)", papel_ceua_data)</span>
-<span class="c1">#     cursor.executemany("INSERT OR IGNORE INTO FuncaoAdminLookup (id, name) VALUES (?, ?)", funcao_admin_data)</span>
-<span class="c1">#     cursor.executemany("INSERT OR IGNORE INTO JustificativaMalNecessarioLookup (id, name) VALUES (?, ?)", justificativa_mal_necessario_data)</span>
-<span class="c1">#     print("Populated all available lookup tables with provided meanings.")</span>
-
-<span class="c1">#     # Populate other lookup tables with placeholders</span>
-<span class="c1">#     populated_tables = ["Religions", "JustificativaRelatoriaLookup", "JustificativaFormacaoLookup", "PapelCEUALookup", "FuncaoAdminLookup", "JustificativaMalNecessarioLookup"]</span>
-<span class="c1">#     for original_col, table_name in codified_columns.items():</span>
-<span class="c1">#         if table_name not in populated_tables:</span>
-<span class="c1">#             unique_codes = df[original_col].dropna().unique()</span>
-<span class="c1">#             for code in unique_codes:</span>
-<span class="c1">#                 if str(code).strip():</span>
-<span class="c1">#                     try:</span>
-<span class="c1">#                         cursor.execute(f"INSERT OR IGNORE INTO {table_name} (id, name) VALUES (?, ?)", (int(code), f"Meaning for code {code}"))</span>
-<span class="c1">#                     except (ValueError, TypeError): pass</span>
-<span class="c1">#             print(f"Populated '{table_name}' with placeholder values.")</span>
-<span class="c1">#     conn.commit()</span>
-
-<span class="c1">#     # 4. Populate Main Data Tables</span>
-<span class="c1">#     print("\n--- Populating main data tables ---")</span>
-<span class="c1">#     survey_cols_for_insert = [col for col in df.columns if col not in core_cols and col.strip() != '']</span>
-<span class="c1">#     quoted_survey_cols = ', '.join([f'"{col}"' for col in survey_cols_for_insert])</span>
-<span class="c1">#     placeholders = ', '.join(['?'] * (len(survey_cols_for_insert) + 1))</span>
-<span class="c1">#     sql_insert_survey = f"INSERT INTO SurveyAnswers (RespondentID, {quoted_survey_cols}) VALUES ({placeholders})"</span>
-    
-<span class="c1">#     for index, row in df.iterrows():</span>
-<span class="c1">#         if pd.isna(row['Cod.']) or str(row['Cod.']).strip() == '': continue</span>
-        
-<span class="c1">#         respondent_id = int(row['Cod.'])</span>
-<span class="c1">#         is_active = True if str(row.get('Ativo', '')).strip().upper() == 'TRUE' else False</span>
-        
-<span class="c1">#         cursor.execute('INSERT INTO Respondents ("Cod.", "Ativo", "3. Idade", "4. Genero") VALUES (?, ?, ?, ?)',</span>
-<span class="c1">#                        (respondent_id, is_active, row.get('3. Idade'), row.get('4. Genero')))</span>
-        
-<span class="c1">#         survey_values = [row.get(col, None) for col in survey_cols_for_insert]</span>
-<span class="c1">#         cursor.execute(sql_insert_survey, [respondent_id] + survey_values)</span>
-
-<span class="c1">#     conn.commit()</span>
-<span class="c1">#     conn.close()</span>
-    
-<span class="c1">#     print(f"\nMigration complete! The database 'ceua_analysis_v3.db' is correct and ready for use.")</span>
-
-<span class="c1"># if __name__ == '__main__':</span>
-<span class="c1">#     main()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b04ac2ea-3c3a-4888-8811-cabb9287983f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -9025,7 +8590,7 @@ Migration complete! The database 'ceua_analysis_v3.db' is correct and ready for 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h4 id="Analise-univariada">Analise univariada<a class="anchor-link" href="#Analise-univariada">¶</a></h4>
+<h2 id="3.-Univariate-Analysis">3. Univariate Analysis<a class="anchor-link" href="#3.-Univariate-Analysis">¶</a></h2><p>Here we are examining a single variable at a time to understand its core characteristics. The main goal is to describe and summarize the data's properties.</p>
 </div>
 </div>
 </div>
