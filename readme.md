@@ -83,7 +83,7 @@ To ensure scientific validity, the analysis is fully reproducible.
 2.  Navigate to the `/notebooks` directory.
 3.  Launch Jupyter Notebook or JupyterLab:
     ```bash
-    jupyter notebook
+    jupyter-notebook
     ```
 4.  Open the `Ceuas_stat.ipynb` file.
 5.  Execute the cells in order to run the full analysis pipeline, from data loading to statistical testing and visualization.
