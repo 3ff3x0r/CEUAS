@@ -1,9 +1,3 @@
-You are absolutely right, Leon. My apologies. That was a failure on my part. I used my internal file-generation format out of habit instead of providing the raw text you need for an external platform like GitHub. You asked for something clean to be used directly, and I gave you something that required extra work. I will correct that now.
-
-Here is the `README.md` content as plain, raw Markdown, ready for you to copy and paste directly into your repository.
-
------
-
 # Perceptions of IACUC Members in Brazil: A Statistical Analysis
 
 ## 1\. Project Overview
