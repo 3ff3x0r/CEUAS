@@ -15,7 +15,7 @@ The analysis is based on a structured, nationwide web-based survey disseminated 
 
 * Karynn Capilé¹
 * Isadora de Castro Travnik¹
-* **Erickson Leon Kovalski² (Statistical Analyst)**
+* Erickson Leon Kovalski² (Statistical Analyst)
 * Mônica Ferreira Corrêa³
 * Carla Forte Maiolino Molento¹
 
