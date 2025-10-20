@@ -1,87 +1,84 @@
-# Perceptions of IACUC Members in Brazil: A Statistical Analysis
+# Statistical Analysis of Perceptions of Brazilian IACUC Members
 
-## 1\. Project Overview
+**Version:** 2.3
+**Last Updated:** 2025-10-21
 
-This repository contains the statistical analysis for a post-doctoral research project conducted at the Universidade Federal do Paraná (UFPR). The project aims to analyze the perceptions of members of Brazilian Institutional Animal Care and Use Committees (CEUAs - Comissões de Ética no Uso de Animais) regarding animal ethics, committee functions, and the welfare of animals used in scientific research.
+## 1. Project Overview
 
-The analysis is based on an anonymized survey distributed to CEUA members across Brazil. This study seeks to uncover correlations and significant differences in opinion based on demographic, professional, and ethical standpoints.
+This repository contains the complete analytical codebase for a post-doctoral research project investigating the perceptions of members of Brazilian Institutional Animal Care and Use Committees (CEUAs - Comissões de Ética no Uso de Animais).
 
-**Statistical Analyst:** Leon
+Grounded in the context of Brazilian Law No. 11.794/2008, which mandates the ethical review of all animal use and the inclusion of representatives from animal protection societies (SPAs), this study aims to understand the extent to which CEUAs in Brazil effectively fulfil their ethical mandate to safeguard animal interests in research and education.
 
-## 2\. Research Questions
+The analysis is based on a structured, nationwide web-based survey disseminated by CONCEA to all registered CEUAs in 2020–2021. From this, 369 valid responses were analyzed to provide a national overview and to test recurrent observations reported by committee members. The findings reveal a system structurally constrained by committee composition and institutional dynamics, highlighting a potential gap between the law's intent and its practical implementation. This codebase represents the complete statistical workup of that data.
 
-This analysis seeks to answer a series of specific hypotheses concerning the relationships between the members' backgrounds, beliefs, and their roles within the CEUA. Key questions include:
+### Research Team & Affiliations
 
-  - Is there an association between the professional **use of animals** and the opinion that animal experimentation is a **"necessary evil"**?
-  - Do **vegans/vegetarians** perceive a different level of **animal suffering** in experiments compared to non-vegetarians?
-  - Is there a correlation between a member's **formal ethics training** and their self-assessed **aptitude for ethical evaluations**?
-  - Is there a relationship between a member's **role on the committee** and whether they feel their **opinions are respected**?
-  - Does the **number of rejected proposals** correlate with the **member's tenure** on the committee?
-  - How do institutional factors, such as the **nature of the institution** (public vs. private) and the **presence of an SPA representative**, relate to the number of licenses refused?
+* Karynn Capilé¹
+* Isadora de Castro Travnik¹
+* **Erickson Leon Kovalski² (Statistical Analyst)**
+* Mônica Ferreira Corrêa³
+* Carla Forte Maiolino Molento¹
+* **Anna (Methodological Supervisor)**
 
-## 3\. Methodology
+---
 
-The analysis is conducted in a Jupyter Notebook (`Ceuas_stat.ipynb`) using Python. The methodology is designed to be transparent, reproducible, and statistically rigorous.
+¹ Animal Welfare Laboratory (LABEA), Federal University of Paraná, Curitiba, Paraná – Brazil  
+² Data Science, Machine Learning, and Optimization Research Group (CiDAMO), Federal University of Paraná, Curitiba, Paraná – Brazil  
+³ Science, Technology and Society Study Group, State University of Rio de Janeiro, Rio de Janeiro – Brazil
 
-### 3.1. Data Source
+## 2. Methodology & Analytical Framework
 
-The primary data is a single, anonymized survey dataset collected from CEUA members. The raw data was cleaned, processed, and imported into a structured **SQLite database** (`ceua_analysis_v3.db`) for efficient and reliable querying. The database includes the main survey answers, respondent information, and lookup tables for coded categorical variables.
+The project is executed within a Jupyter Notebook environment, leveraging Python and a suite of statistical and visualization libraries. Our methodology is built on a foundation of transparency, reproducibility, and a rigorous commitment to selecting the appropriate statistical tool for the nature of the data.
 
-### 3.2. Statistical Tests
+### 2.1. Data Infrastructure
 
-The choice of statistical test is determined by the nature of the variables being compared for each hypothesis. The primary tests used are:
+To ensure data integrity and facilitate complex, reproducible queries, the raw survey data was cleaned and migrated from its original spreadsheet format into a structured **SQLite database** (`ceua_analysis_v3.db`). This relational database, which separates respondent data from survey answers and links codified qualitative responses to lookup tables, serves as the single source of truth for all analyses.
 
-  - **Chi-Square (χ²) Test of Independence:** Used to determine if there is a significant association between two categorical variables (e.g., "User vs. Non-user" and "Favorable vs. Critical Justification").
-  - **Mann-Whitney U Test:** A non-parametric test used to compare the distributions of an ordinal variable (e.g., a Likert scale score) between two independent groups (e.g., "Vegans vs. Non-vegans").
+### 2.2. The Three-Phase Analytical Workflow
 
-All tests are conducted with a significance level (α) of 0.05.
+Our research progressed through three distinct, complementary phases:
 
-### 3.3. Tools & Libraries
+**Phase 1: Foundational Univariate Analysis**
+A systematic, question-by-question descriptive analysis of each variable to establish a baseline understanding of the sample. This involved a strict protocol of data cleaning, translation (from Portuguese to English), statistical summary, and visualization using a standardized plot format.
 
-  - **Language:** Python 3.10
-  - **Environment:** Jupyter Notebook
-  - **Core Libraries:**
-      - `pandas`: For data manipulation and structuring.
-      - `sqlite3`: For querying the project database.
-      - `scipy.stats`: For performing the statistical tests (chi2\_contingency, mannwhitneyu).
-      - `matplotlib` & `seaborn`: For data visualization.
+**Phase 2: Bivariate Hypothesis Testing**
+This phase moved from description to inference, testing specific relationships between pairs of variables. The choice of methodology was strictly governed by the statistical nature of the data, as codified in our `analysis_procedure.md` document:
 
-## 4\. Repository Structure
+* **Categorical vs. Categorical:** Chi-Squared Test with Grouped/Stacked Bar Charts.
+* **Ordinal vs. Ordinal:** Spearman's Rank Correlation with a hybrid visualization approach.
+* **Categorical vs. Ordinal:** Kruskal-Wallis / Mann-Whitney U Test with Box Plots.
 
+**Phase 3: Qualitative Coding and Data Integrity**
+A significant portion of our work involved the rigorous processing of unstructured text data.
+
+* **Qualitative Coding:** We established and iteratively refined a formal process for classifying open-ended responses (e.g., Q25, Q45, Q47), involving an inter-rater reliability workflow to produce a robust, coded dataset.
+* **Data Integrity Audits:** We created specific diagnostic scripts to perform logical consistency checks on the data (e.g., comparing Q15 vs. Q23), ensuring the validity of variables before their use in hypothesis testing.
+
+## 3. Repository Structure
 ```
-.
-├── data/
-│   └── ceua_analysis_v3.db       # The project's SQLite database
-├── notebooks/
-│   └── Ceuas_stat.ipynb          # Jupyter Notebook with the full analysis
-├── reports/
-│   └── Ceuas_stat.html           # Exported HTML report (code hidden)
-└── README.md                     # This file
+├── Ceuas_stat.ipynb
+├── Ceuas_stat.html
+├── ceua_analysis_v3.db
+├── form1.pdf
+├── Codificacoes
+├── detailed_similarity_report.html
+├── push_to_git.sh
+├── similar_rows_report.csv
+└── README.md
 ```
+## 4. How to Reproduce the Analysis
 
-## 5\. How to Reproduce the Analysis
+The analysis is designed to be fully reproducible.
 
-To ensure scientific validity, the analysis is fully reproducible.
+### 4.1. Prerequisites
 
-### 5.1. Prerequisites
+* A Python 3.10+ environment (Anaconda is recommended).
+* The required Python libraries.
 
-  - A Python environment (Anaconda is recommended).
-  - The required Python libraries installed. You can install them via pip:
-    ```bash
-    pip install pandas scipy matplotlib seaborn jupyter
-    ```
+### 4.2. Running the Analysis
 
-### 5.2. Running the Analysis
-
-1.  Clone this repository to your local machine.
-2.  Navigate to the `/notebooks` directory.
-3.  Launch Jupyter Notebook or JupyterLab:
-    ```bash
-    jupyter-notebook
-    ```
-4.  Open the `Ceuas_stat.ipynb` file.
-5.  Execute the cells in order to run the full analysis pipeline, from data loading to statistical testing and visualization.
-
-## 6\. License
-
-This research project is licensed under the MIT License. See the `LICENSE` file for details.
+1. Clone this repository to your local machine.
+2. Ensure all files are in the same directory.
+3. Launch Jupyter Notebook or JupyterLab.
+4. Open the `Ceuas_stat.ipynb` file.
+5. Execute the cells in order to run the full analysis pipeline, from data loading to statistical testing and visualization.
