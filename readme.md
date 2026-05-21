@@ -81,3 +81,5 @@ The analysis is designed to be fully reproducible.
 3. Launch Jupyter Notebook or JupyterLab.
 4. Open the `Ceuas_stat.ipynb` file.
 5. Execute the cells in order to run the full analysis pipeline, from data loading to statistical testing and visualization.
+
+[Results preview](https://github.com/3ff3x0r/CEUAS/edit/main/Ceuas_stat.html)   
